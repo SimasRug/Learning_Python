@@ -1,12 +1,6 @@
+import math
 cities = int(input('How many cities? '))
 
-num = 1
-citiesTemp = cities
+num = math.factorial(cities)
 
-while citiesTemp >=1:
-    num = num * citiesTemp
-    citiesTemp = citiesTemp - 1
-
-    
-
-print('For ', cities, ' there are ', num, ' possible routes')
+print('For ', cities, ' cities there are ', num, ' possible routes')

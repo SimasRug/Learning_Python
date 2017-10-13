@@ -6,5 +6,5 @@ L = int(input('How many years civilizations last? '))
 num_detectable_civ = R * p * n * f * i * c * L
 
 
-print('Base in the values entered...')
+print('Based on the values entered...')
 print('there are an estimated ', round(num_detectable_civ), 'potentially detectable civilizations in your galaxy')
