@@ -1,0 +1,10 @@
+num1 =  7 #float(input('Enter the first number: '))
+num2 = 5 #float(input('Enter the second number: '))
+
+print(num1,'+',num2,'=', format(num1+num2, '.2f'))
+print(num1,'-',num2,'=', format(num1-num2, '.2f'))
+print(num1,'*',num2,'=', format(num1*num2, '.2f'))
+print(num1,'/',num2,'=', format(num1/num2, '.2f'))
+print(num1,'//',num2,'=', format(num1//num2, '.2f'))
+print(num1,'%',num2,'=', format(num1%num2, '.2f'))
+print(num1,'**',num2,'=', format(num1**num2, '.2f'))
