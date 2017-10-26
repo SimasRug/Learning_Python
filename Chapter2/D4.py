@@ -1,12 +1,3 @@
-# rang_size = 60-30
-# count = 0
-#
-# for x in range(30,61):
-#     count = x + count
-#     print(x, count)
-#
-#
-# print(count/rang_size)
 def return_average(a, b, range_size):
     count = 0
     for x in range (a,b):
