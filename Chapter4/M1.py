@@ -1,6 +1,6 @@
 import datetime
 
-zodiac_animals = ('Rat', 'Ox', 'Tiger', 'Rabbit', 'Dragon', 'Snake', 'Horse', 'Goat', 'Monkey', 'Rooster', 'Dog', 'Pig')
+zodiac_animals = ('Rat', ['Ox', 'Watter Buffalo'], 'Tiger', ['Rabbit', 'Cat'], 'Dragon', 'Snake', 'Horse', 'Goat', 'Monkey', 'Rooster', 'Dog', ['Pig', 'Wild Boar'])
 
 rat = 'Fortright, indusrius, sensitive, intelectual, sociable'
 ox = 'Dependable, methodical, modest, born leader, patient'
@@ -25,6 +25,10 @@ current_yr = datetime.date.today().year
 
 while not terminate:
     birth_yr = int(input('Enter your year of birth: '))
+    calendar = input('What kind of calendar would you like to see Chineese/c, Japaniese/j, Vietnamiese/v: ')
+
+    while calendar != 'c' and calendar !='j' and calendar !='v':
+        calendar = input('What kind of calendar would you like to see Chineese/c, Japaniese/j, Vietnamiese/v: ')
 
     while birth_yr < 1900 or birth_yr > current_yr:
         print('Invalid year. Please re-enter: ')
@@ -32,7 +36,15 @@ while not terminate:
 
     cycle_num = (birth_yr - 1990) % 12
 
-    print('Your Chineese zodiac is ', zodiac_animals[cycle_num])
+    if(cycle_num == 11 and calendar == 'j'):
+        print('Your zodiac is ', zodiac_animals[cycle_num][1])
+    elif((cycle_num == 1 or cycle_num == 3) and calendar == 'v'):
+        print('Your zodiac is ', zodiac_animals[cycle_num][1])
+    elif((cycle_num == 1 or cycle_num == 3 or cycle_num == 11) and calendar == 'c'):
+        print('Your Chineese zodiac is ', zodiac_animals[cycle_num][0])
+    else:
+        print('Your Chineese zodiac is ', zodiac_animals[cycle_num])
+
     print('Your characteristics ', characteristics[cycle_num])
 
     response = input('Would you like to continue and input another year: y/n: ')

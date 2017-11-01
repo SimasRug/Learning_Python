@@ -32,7 +32,7 @@ print('/n')
 if(len(array) == len(array1)):
     print('Lists are the same length')
 else:
-    print('Lists are not the same leght')
+    print('Lists are not the same lenght')
 
 if(total1 == total):
     print('Lists sum values ar the same')
@@ -42,7 +42,7 @@ else:
 if(len(same_values) > 0):
     print('Same values on both lists',same_values)
 else:
-    print('There are no recurring in both lists ')
+    print('There are no recurring numbers in both lists ')
 
 
 
