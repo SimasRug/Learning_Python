@@ -47,36 +47,20 @@ def player_move(board):
                 return did_player_win, board
             else:
                 print('Position taken')
-                player_move(board)
+                return player_move(board)
         else:
             position = int(input('Enter position of X: '))
 
 
 def computer_move(board):
-    print('Computer Turn')
-    printboard(board)
-    avialble_positions = check_avialble_position(board)
-    print(avialble_positions)
-    for x in range(0, len(avialble_positions)):
-        board[avialble_positions[x]] = '0'
-        printboard(board)
-        did_computer_win = check_for_win(board,'0')
-        print(did_computer_win)
-        print('\n')
-        if(did_computer_win):
-            print('Computer Win!')
-            return
-        else:
-            print('Computer did not win!!')
-            computer_move(board)
+   
 
 
 
 
 
-# game_over = False;
-# while not game_over:
-     # game_over, gameBoard = player_move(gameBoard)
-     # computer_move(gameBoard)
-# check_for_win(gameBoard, 'X')
-computer_move(gameBoard)
+game_over = False;
+while not game_over:
+     game_over, gameBoard = player_move(gameBoard)
+     computer_move(gameBoard)
+
