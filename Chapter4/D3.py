@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+board = []
+
+for i in range(0, 5):
+    board.append("0"*5)
+
+print(board)
+=======
 import random
 
 def draw_board(): #createe the battleship board
@@ -161,3 +169,4 @@ while game_over == False:
     print('Computer Board')
     display_board(computer_board_for_user)
     print('\n')
+>>>>>>> f1651ace078485599c60da935f83206e000d9b27

@@ -9,6 +9,11 @@ days.append([birth_month, birth_month, 'Your birthday'])
 week_days = { 0: 'Monday', 1: 'Teusday', 2: 'Wenesday', 3:'Thursday', 4:'Friday', 5:'Saturday', 6:'Sunday'}
 
 
+<<<<<<< HEAD
+for x in days:
+    weekday = datetime.datetime(year, x[0], x[1], 0, 0, 0, 0).weekday()
+    print(x[2], 'was on', week_days[weekday])
+=======
 
 a = datetime.datetime(year, days[0][0], 23, 0, 0, 0, 0).weekday()
 # print(a)
@@ -18,3 +23,4 @@ for x in days:
     print(x[2], 'was ', week_days[weekday] )
 
 # print(datetime.datetime.today().weekday())
+>>>>>>> f1651ace078485599c60da935f83206e000d9b27

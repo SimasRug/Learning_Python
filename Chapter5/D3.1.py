@@ -1,24 +1,20 @@
-# gameBoard = [' ']*9
-# gameBoard = ['X','X','X',' ',' ',' ',' ',' ',' ']
+import copy
 
-gameBoard = ['0',' ','X','X','X',' ',' ','0','0']
+game_over = False
+game_board = [' ']*9
 
-
-def printboard(board):
+def print_board(board):
     inc = 0
     for x in range(0,3):
         print(board[inc], '|', board[inc+1], '|', board[inc+2])
         inc = inc + 3
 
-
-def check_avialble_position(board):
-    arr = []
-    for x in range(0,9):
+def check_available_spots(board):
+    free_positions = []
+    for x in range(0, len(board)):
         if(board[x] == ' '):
-            arr.append(x)
-    return arr
-
-
+            free_positions.append(x)
+    return free_positions
 
 def check_for_win(board, player):
     wining_conditions = ((0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6))
@@ -28,80 +24,81 @@ def check_for_win(board, player):
     return False
 
 
-
-def player_move(board):
-    printboard(board)
-    position = int(input('Enter position of X: '))
+def player_move(board, player):
+    position = int(input('Enter position of {}: '.format(player)))
     state = False
     while not state:
-        if(position < 9 and position > -1):
-            avialble_positions = check_avialble_position(board)
-            # print(avialble_positions)
-            if(position in avialble_positions):
-                board[position] = 'X'
-                did_player_win = (check_for_win(board, 'X'))
+        if(position > -1 and position < 9):
+            available_positions = check_available_spots(board)
+            if(position in available_positions):
+                board[position] = player
+                did_player_win = check_for_win(board, player)
                 state = True
                 if(did_player_win):
-                    printboard(board)
-                    print('Player WON!')
+                    print('Player {} WON!!!'.format(player))
                 return did_player_win, board
             else:
-                print('Position taken')
-                return player_move(board)
+                print('This position is taken')
+                position = int(input('Enter position of {}: '.format(player)))
+                # return player_move(board, player)
         else:
-            position = int(input('Enter position of X: '))
+            print('Wrong Input')
+            position = int(input('Enter position of {}: '.format(player)))
+
+def computer_move(board, player):
+    score, move = minimax(board, player)
+    board[move] = player
+    check_win = check_for_win(board, player)
+    if(check_win):
+        print('Computer Won!!!')
+    return check_win, board
 
 
-def computer_move(board):
-    print('Computer Turn')
-    printboard(board)
-    find_best_move(board, '0')
+def minimax(board, player):
+    available_spots = check_available_spots(board)
 
-    # avialble_positions = check_avialble_position(board)
-    # print(avialble_positions)
-    # for x in range(0, len(avialble_positions)):
-    #     board[avialble_positions[x]] = '0'
-    #     printboard(board)
-    #     did_computer_win = check_for_win(board,'0')
-    #     print(did_computer_win)
-    #     print('\n')
-    #     if(did_computer_win):
-    #         print('Computer Win!')
-    #         return
-    #     else:
-    #         print('Computer did not win!!')
-    #         computer_move(board)
+    if(check_for_win(board, 'X')):
+        return (-10, -1)
+    elif(check_for_win(board, '0')):
+        return (10, 1)
+    elif(available_spots == []):
+        return (0, -1)
 
 
-def find_best_move(board, player):
-    possible_moves = []
-    avialble_positions = check_avialble_position(board)
-    for x in range(0, len(avialble_positions)):
-        new_board = list(board)
-        new_board[avialble_positions[x]] = player
-        did_computer_win = check_for_win(new_board,player)
+    if(player == '0'):
+        best_value = -1000
+        best_move = -1
+        for x in available_spots:
+            new_board = copy.deepcopy(board)
+            new_board[x] = '0'
+            value, move = minimax(new_board, 'X')
 
+            if(value > best_value):
+                best_value = value
+                best_move = x
+        return best_value, best_move
 
+    if(player == 'X'):
+        best_value = 1000
+        best_move = -1
+        for x in available_spots:
+            new_board = copy.deepcopy(board)
+            new_board[x] = 'X'
+            value, move = minimax(new_board, '0')
 
-
-
-
-    # print(possible_moves)
-    # for x in possible_moves:
-    #     printboard(x)
-    #     print('\n')
+            if(value < best_value):
+                best_value = value
+                best_move = x
+        return best_value, best_move
 
 
 
+print_board(game_board)
+while game_over == False:
 
+        game_over, game_board = computer_move(game_board, '0')
+        print_board(game_board)
 
-
-
-
-game_over = False;
-while not game_over:
-     game_over, gameBoard = player_move(gameBoard)
-     print(game_over, gameBoard)
-     # gameover, gameBoard = computer_move(gameBoard)
-# check_for_win(gameBoard, 'X')
-# computer_move(gameBoard)
+        if(game_over == False):
+            game_over, game_board = player_move(game_board, 'X')
+            print_board(game_board)
