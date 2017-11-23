@@ -2,99 +2,68 @@ import turtle
 import random
 
 tur = turtle.Turtle()
-tur.color('red')
+tur1 = turtle.Turtle()
+tur2 = turtle.Turtle()
+tur.color('grey')
+tur1.color('white')
+tur2.color('red')
 tur.pensize(5)
-tur.speed(10)
-
+tur1.pensize(5)
+tur2.pensize(5)
+tur.speed(0)
+tur1.speed(0)
+tur2.speed(0)
+turtle.setup(800,800)
 window = turtle.Screen()
 window.bgcolor('black')
 
 def ff(range):
     return random.randrange(range)
 
-
-def angle():
-    ff = ff(3)
-    if(ff == 0):
-        tur.right(90)
-    elif(ff == 1):
-        tur.left(90)
-    elif (ff ==2):
-        tur.left(0)
-
-def movement(direction):
-    # tur.forward(50)
-    if(direction == 0):
-        tur.forward(50)
-    else:
-        tur.backward(50)
-
-
-def checkWall():
+def checkWall(t):
     xmax = (window.window_width()/2)-100
     xmin = (-window.window_width()/2)+100
     ymax = (window.window_height()/2)-100
     ymin = (-window.window_height()/2)+100
-    turtleX = tur.xcor()
-    turtleY = tur.ycor()
-    print( tur.heading()) #fix this later
+    turtleX = t.xcor()
+    turtleY = t.ycor()
+    # print( tur.heading()) #fix this later
     if(turtleX >= xmax):
-        # tur.left(180)
-        tur.setposition(xmax, turtleY)
+        t.setheading(180)
+        t.setposition(xmax, turtleY)
+        # angle(t)
     if(turtleX <= xmin):
-        #  tur.right(180)
-        tur.setposition(xmin, turtleY)
+        t.setheading(0)
+        # angle(t)
+        t.setposition(xmin, turtleY)
     if(turtleY >= ymax):
-        #  tur.left(180)
-        tur.setposition(turtleX, ymax)
+        t.setheading(270)
+        # angle(t)
+        t.setposition(turtleX, ymax)
     if(turtleY <= ymin):
-        #  tur.right(180)
-        tur.setposition(turtleX, ymin)
+        t.setheading(90)
+        # angle(t)
+        t.setposition(turtleX, ymin)
 
 
-def angle():
+def angle(t):
     angle = ff(3)
     if(angle == 0):
-        tur.right(90)
+        t.right(90)
     elif(angle == 1):
-        tur.left(90)
+        t.left(90)
     elif(angle ==2):
-        tur.left(0)
+        t.left(0)
 
 while True:
-    # movement(ff(2))
     tur.forward(50)
-    angle()
-    checkWall()
+    tur1.forward(50)
+    tur2.forward(50)
+    angle(tur)
+    angle(tur1)
+    angle(tur2)
+    checkWall(tur)
+    checkWall(tur1)
+    checkWall(tur2)
     
-    
-
-
-# def isInScreen(window, t):
-#     xmin = (-window.window_width()/2)+50
-#     xmax = (window.window_width()/2)-50
-#     ymin = (-window.window_height()/2)+50
-#     ymax = (window.window_height()/2)-50
-
-#     turtleX = t.xcor()
-#     turtleY = t.ycor()
-
-#     if (turtleX < xmin or turtleX > xmax):
-#         t.backward(50)
-#         # return False 
-#     if(turtleY < ymin or turtleY > ymax):
-#         t.backward(50)
-#         # return False
-
-#     return True
-
-# while isInScreen(window, t):
-#     t.fd(50)
-#     coin = random.randrange(2)
-#     if coin == 0:
-#         t.left(90)
-#     elif coin == 1:
-#         t.right(90)
-
-# turtle.mainloop()
 turtle.exitonclick()
