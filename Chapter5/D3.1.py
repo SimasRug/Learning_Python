@@ -1,4 +1,5 @@
 import copy
+import random
 
 game_over = False
 game_board = [' ']*9
@@ -56,6 +57,7 @@ def computer_move(board, player):
 
 def minimax(board, player):
     available_spots = check_available_spots(board)
+    # random.shuffle(available_spots)
 
     if(check_for_win(board, 'X')):
         return (-10, -1)
@@ -100,5 +102,5 @@ while game_over == False:
         print_board(game_board)
 
         if(game_over == False):
-            game_over, game_board = player_move(game_board, 'X')
+            game_over, game_board = computer_move(game_board, 'X')
             print_board(game_board)
