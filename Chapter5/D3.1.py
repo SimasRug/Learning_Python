@@ -24,6 +24,11 @@ def check_for_win(board, player):
             return True
     return False
 
+def check_for_Tie(board):
+    available_positions = check_available_spots(board)
+    if( available_positions == []):
+        return True
+    return False
 
 def player_move(board, player):
     position = int(input('Enter position of {}: '.format(player)))
@@ -33,11 +38,16 @@ def player_move(board, player):
             available_positions = check_available_spots(board)
             if(position in available_positions):
                 board[position] = player
+                is_it_tie = check_for_Tie(board)
                 did_player_win = check_for_win(board, player)
                 state = True
-                if(did_player_win):
-                    print('Player {} WON!!!'.format(player))
-                return did_player_win, board
+                if(is_it_tie and not did_player_win ):
+                    print('TIE!!')
+                    return is_it_tie ,board
+                else:
+                    if(did_player_win):
+                        print('Player {} WON!!!'.format(player))
+                    return did_player_win, board
             else:
                 print('This position is taken')
                 position = int(input('Enter position of {}: '.format(player)))
@@ -49,15 +59,23 @@ def player_move(board, player):
 def computer_move(board, player):
     score, move = minimax(board, player)
     board[move] = player
+    is_it_tie = check_for_Tie(board)
     check_win = check_for_win(board, player)
-    if(check_win):
-        print('Computer Won!!!')
-    return check_win, board
+    if(is_it_tie and not check_win):
+        print('TIE!!')
+        return is_it_tie, board
+    else:
+        if(check_win):
+            print('Computer Won!!!')
+        return check_win, board
 
 
 def minimax(board, player):
     available_spots = check_available_spots(board)
-    # random.shuffle(available_spots)
+    # print(available_spots)
+    random.shuffle(available_spots)
+    # print(available_spots)
+    
 
     if(check_for_win(board, 'X')):
         return (-10, -1)
@@ -65,7 +83,6 @@ def minimax(board, player):
         return (10, 1)
     elif(available_spots == []):
         return (0, -1)
-
 
     if(player == '0'):
         best_value = -1000
@@ -78,6 +95,7 @@ def minimax(board, player):
             if(value > best_value):
                 best_value = value
                 best_move = x
+                # print(best_move_arr)
         return best_value, best_move
 
     if(player == 'X'):
@@ -96,11 +114,16 @@ def minimax(board, player):
 
 
 print_board(game_board)
+print()
 while game_over == False:
 
+    if(game_over == False):
+        game_over, game_board = player_move(game_board, 'X')
+        print_board(game_board)
+        print()
+
+    if(game_over == False):
         game_over, game_board = computer_move(game_board, '0')
         print_board(game_board)
+        print()
 
-        if(game_over == False):
-            game_over, game_board = computer_move(game_board, 'X')
-            print_board(game_board)

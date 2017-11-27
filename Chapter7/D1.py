@@ -1,4 +1,4 @@
-test = '(this is (test (for parenteses) it should) work'
+test = '(this is (test (for parentheses) it should) work)'
 # test = 'this a false string'
 
 
