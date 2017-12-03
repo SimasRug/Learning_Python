@@ -80,7 +80,7 @@ def minimax(board, player):
     if(check_for_win(board, 'X')):
         return (-10, -1)
     elif(check_for_win(board, '0')):
-        return (10, -1)
+        return (10, 1)
     elif(available_spots == []):
         return (0, -1)
 
