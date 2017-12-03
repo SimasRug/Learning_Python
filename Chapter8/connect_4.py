@@ -25,40 +25,41 @@ def check_available_postion(board):
     
 
 
-def player_move(board):
+def player_move(board, player):
     position = int(input('Enter position (1-7): '))
-    if 0 < position and position < 8:
-        position = position - 1
+    position = position - 1
+    if -1 < position and position < 7:
         if(board[0][position] != 0):
-            print('Position taken')
-            player_move(board)
+            print('Column full!!!!!!!!!')
+            return player_move(board, player)
+
         else:
-            needed_comlumn = []
-              
             available_positions = check_available_postion(board)
+        
+            needed_comlumn = []
 
             for x in available_positions:
                 if(x[1] == position):
                     needed_comlumn.append(x)
-            
+                
             fall_move = -1
             for x in needed_comlumn:
                 # print (x)
                 if(x[0] > fall_move):
                     fall_move = x[0]
 
-            board[fall_move][position] = 1
-                
+            board[fall_move][position] = player
+                    
             return False, board
 
     else:
-      raise ValueError ('Wrong input')
+        raise ValueError ('Wrong input')
 
 
 game_over = False
 while not game_over:
     try:
-        game_over, game_board = player_move(game_board)
+        game_over, game_board = player_move(game_board, 1)
     except ValueError as err_msg:
         print(err_msg,'\n')
 
