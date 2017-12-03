@@ -1,4 +1,6 @@
-w, h = 7, 7;
+import copy
+
+w, h = 6, 6;
 game_board = [[0 for x in range(w)] for y in range(h)] 
 
 
@@ -96,6 +98,7 @@ def computer_move(board, player):
 
     is_it_tie = check_for_tie(board)
     check_win = check_for_tie(board)
+    score, move = minimax(board, player)
 
     if(is_it_tie and not check_win):
         print('TIE!!!')
@@ -104,6 +107,7 @@ def computer_move(board, player):
         if(check_win):
             print('Computer Won!')
             return check_win, board
+    return False, board
 
 
 def minimax(board, player):
@@ -120,7 +124,16 @@ def minimax(board, player):
         best_value = 1000
         best_move = -1
         for x in available_spots:
-            print(x)
+            new_board = copy.deepcopy(board)
+            new_board[0][1] = 'penis'
+            # new_board[x[0]][x[1]] = 'Y'
+            # print(new_board[x[0]][x[1]])
+            # print(x[0],x[1])
+            print_board(new_board)
+            # print_board(board)
+            
+
+    return False, board
 
 
 
