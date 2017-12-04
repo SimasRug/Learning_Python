@@ -146,17 +146,7 @@ def minimax(board, player):
         best_move = [None, None]
         for x in available_spots:
             new_board = copy.deepcopy(board)
-<<<<<<< HEAD
-            new_board[0][1] = 'penis'
-            # new_board[x[0]][x[1]] = 'Y'
-            # print(new_board[x[0]][x[1]])
-            # print(x[0],x[1])
-            print_board(new_board)
-            # print_board(board)
-            
 
-    return False, board
-=======
             new_board[x[0]][x[1]] = 'X'
             print_board(new_board)
             value, move = minimax(new_board, 'Y')
@@ -170,7 +160,6 @@ def minimax(board, player):
 
     # return 0, 0
 
->>>>>>> 95787647699d68ef0b9f1ac1b3b0db754c882aed
 
 
 
