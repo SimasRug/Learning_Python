@@ -18,10 +18,7 @@ def check_available_postion(board):
             if(board[x][j] == 0):
                 free_positions.append([x,j])
     return free_positions
-        
-       
-           
-            
+             
     
 
 
