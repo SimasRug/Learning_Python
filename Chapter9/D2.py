@@ -10,9 +10,7 @@ def convert_to_base(value):
     
 
     for x in range(0, len(value_array),2):
-        print(value_array[x])
         t = (int(value_array[x])*16) + int(value_array[x+1])
-        print(t)
         return_arr.append(t)
 
 
