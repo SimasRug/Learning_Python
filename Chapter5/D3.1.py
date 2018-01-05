@@ -57,7 +57,9 @@ def player_move(board, player):
             position = int(input('Enter position of {}: '.format(player)))
 
 def computer_move(board, player):
-    score, move = minimax(board, player)
+    # score, move = minimax(board, player)
+    score, move = minimax(board, player, -1000, 1000)
+
     board[move] = player
     is_it_tie = check_for_Tie(board)
     check_win = check_for_win(board, player)
@@ -69,8 +71,7 @@ def computer_move(board, player):
             print('Computer Won!!!')
         return check_win, board
 
-
-def minimax(board, player):
+def minimax(board, player, aplha, beta):
     available_spots = check_available_spots(board)
     # print(available_spots)
     random.shuffle(available_spots)
@@ -90,11 +91,16 @@ def minimax(board, player):
         for x in available_spots:
             new_board = copy.deepcopy(board)
             new_board[x] = '0'
-            value, move = minimax(new_board, 'X')
+            value, move = minimax(new_board, 'X', aplha, beta)
 
             if(value > best_value):
                 best_value = value
                 best_move = x
+
+            aplha = max(aplha, best_value)
+            if beta <= aplha:
+                break
+            
                 # print(best_move_arr)
         return best_value, best_move
 
@@ -104,12 +110,60 @@ def minimax(board, player):
         for x in available_spots:
             new_board = copy.deepcopy(board)
             new_board[x] = 'X'
-            value, move = minimax(new_board, '0')
+            value, move = minimax(new_board, '0', aplha, beta)
 
             if(value < best_value):
                 best_value = value
                 best_move = x
+
+            beta = min(beta, best_value)
+            if beta <= aplha:
+                break
+            
         return best_value, best_move
+
+
+
+# def minimax(board, player):
+#     available_spots = check_available_spots(board)
+#     # print(available_spots)
+#     random.shuffle(available_spots)
+#     # print(available_spots)
+    
+
+#     if(check_for_win(board, 'X')):
+#         return (-10, -1)
+#     elif(check_for_win(board, '0')):
+#         return (10, 1)
+#     elif(available_spots == []):
+#         return (0, -1)
+
+#     if(player == '0'):
+#         best_value = -1000
+#         best_move = -1
+#         for x in available_spots:
+#             new_board = copy.deepcopy(board)
+#             new_board[x] = '0'
+#             value, move = minimax(new_board, 'X')
+
+#             if(value > best_value):
+#                 best_value = value
+#                 best_move = x
+#                 # print(best_move_arr)
+#         return best_value, best_move
+
+#     if(player == 'X'):
+#         best_value = 1000
+#         best_move = -1
+#         for x in available_spots:
+#             new_board = copy.deepcopy(board)
+#             new_board[x] = 'X'
+#             value, move = minimax(new_board, '0')
+
+#             if(value < best_value):
+#                 best_value = value
+#                 best_move = x
+#         return best_value, best_move
 
 
 
